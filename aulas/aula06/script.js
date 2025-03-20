@@ -1,0 +1,1 @@
+var nome = String(window.prompt('Qual o seu nome? '))
