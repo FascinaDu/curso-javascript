@@ -26,7 +26,7 @@ O projeto foi desenvolvido com as seguintes tecnologias:
 
 Para instalar e executar o projeto, siga os passos abaixo:
 
-```py
+```js
 # Clone este repositório
 git clone https://github.com/FascinaDu/curso-javascript.git
 
