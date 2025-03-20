@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste 001</title>
+    <style>
+        body {
+            background-color: rgb(180, 180, 180);
+            font: bold 20pt Arial;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    
+    <script>
+        var salário = Number(prompt('Qual é seu salário? '))
+        document.write(`Seu salário é ${salário.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'.replace('.', ',')})}`)
+
+    </script>
+</body>
+</html>
