@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Média prova</title>
+    <style>
+        body {
+            font: normal 20pt Arial;
+            color: black;
+            background-color: whitesmoke;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var n1 = Number(window.prompt('Digite a primeira nota: '))
+        var n2 = Number(window.prompt('Digite a segunda nota: '))
+        var media = (n1 + n2)/2
+        document.write(`Sua situação atual é ${media >= 7? 'Aprovado': 'Reprovado'}`)
+    </script>
+</body>
+</html>
