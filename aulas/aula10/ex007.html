@@ -20,12 +20,12 @@
 <body>
     <h1>Somando valores</h1>
     <input type="number" name="textn1" id="textn1"> +
-    <input type="number" name="textn1" id="textn2">
-    <input type="button" value="somar" onclick="somar()">
-    <div id="res">Resultado:</div>
+    <input type="number" name="textn2" id="textn2">
+    <input type="button" value="Somar" onclick="somar()">
+    <div id="res">A soma...</div>
     <script>
         function somar() {
-            var tn1 = windom.document.getElementById('textn1')
+            var tn1 = document.querySelector('input#textn1')
             var tn2 = document.querySelector('input#textn2')
             var res = document.getElementById('res')
             var n1 = Number(tn1.value)
