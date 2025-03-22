@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Que time torce?</title>
+    <style>
+        body {
+            font: normal 12pt Arial;
+        }
+    </style>
+</head>
+<body>
+    <h1>Qual time você torce?</h1>
+    Time do seu coração: <input type="text" name="time" id="time">
+    <input type="button" value="Enter" onclick="clicar()">
+    <div id="res">
+
+    </div>
+
+    <script>
+        function clicar() {
+            var time = document.querySelector('input#time')
+            var res = document.querySelector('div#res')
+            var valor = (time.value)
+            res.innerHTML = `<p>Você torce para o time: ${valor}</p>`
+            if (valor == 'Corinthians') {
+                res.innerHTML += '<p><strong>VAI CORINTHIANS!!!!</strong></p>'
+            }else if (valor == 'Palmeiras') {
+                res.innerHTML += '<p>CREDO!!!!!!!!!!!!!!!!!</p>'
+            }
+        }
+    </script>
+    
+</body>
+</html>

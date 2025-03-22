@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Você é BR?</title>
+    <style>
+        body {
+            font: normal 12pt Arial;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sua nacionalidade</h1>
+    Você nasceu em qual país? <input type="text" name="país" id="país">
+    <input type="button" value="Enter" onclick="enter()">
+    <div id="res">
+
+    </div>
+    
+    <script>
+        function enter() {
+            var nac = document.querySelector('input#país')
+            var res = document.querySelector('div#res')
+            var país = (nac.value)
+            res.innerHTML = `<p>Você mora em ${país}</p>`
+            if (país == 'Brasil') {
+                res.innerHTML += '<strong>fAQUI É BRASIL'
+            }
+        }
+    </script>
+</body>
+</html>
