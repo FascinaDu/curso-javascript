@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modelo de exercício</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <header>
@@ -12,9 +14,9 @@
     </header>
 
     <section>
-        <div>
+        <div style="text-align: center;">
             <p>Ano de Nascimento:
-                 <input type="number" name="txtano" id="txtano" min="0">
+                 <input type="number" class="estilizado" name="txtano" id="txtano" min="0">
             </p>
             <p>Sexo: 
                 <input type="radio" name="radsex" id="mas" checked>
@@ -23,12 +25,11 @@
                 <label for="fem">Feminino</label>
             </p>
             <p>
-                <input type="button" value="Verificar" onclick="verificar()">
+                <input type="button" class="botao-bonito" value="Verificar" onclick="verificar()">
             </p>
         </div>
-
-        <div id="res">
-            Preencha os dados para ver o resultado
+        <div id="res" style="text-align: center; margin-top: 20px;">
+            <p>Preencha os dados para ver o resultado</p>
         </div>
     </section>
 

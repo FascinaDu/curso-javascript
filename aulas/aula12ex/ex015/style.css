@@ -1,5 +1,7 @@
+/* usei um pouco de Chat GPT hihi */
+
 body {
-    background-color: rgb(70, 142, 235);
+    background-color: #585858;
     font: normal 15pt Arial;
 }
 
@@ -7,6 +9,66 @@ header {
     color: white;
     text-align: center;
 }
+
+.botao-bonito {
+    background-color:#585858;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+.estilizado {
+    width: 100%;
+    max-width: 100px;
+    max-height: 20px;
+    padding: 5px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    border: 1.5px solid #333333;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Efeito ao clicar no input */
+.estilizado:focus {
+    border-color: #00000079;
+    box-shadow: 0px 0px 8px rgba(31, 31, 31, 0.349);
+}
+
+/* Remover as setinhas padrão do input number */
+.estilizado::-webkit-inner-spin-button,
+.estilizado::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.estilizado {
+    -moz-appearance: textfield; /* Para Firefox */
+}
+
+
+
+.botao-bonito:active {
+    background-color: rgb(44, 44, 44);
+    transform: scale(0.95); 
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.botao-bonito {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; 
+}
+
 
 section {
     background-color: white;
