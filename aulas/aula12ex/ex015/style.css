@@ -10,11 +10,12 @@ header {
 
 section {
     background-color: white;
-    border-radius: 10px;
+    border-radius: 16px;
     padding: 15px;
     width: 500px;
     margin: auto;
     box-shadow: 3px 3px 10px rgba(19, 19, 19, 0.384);
+
 }
 
 footer {
