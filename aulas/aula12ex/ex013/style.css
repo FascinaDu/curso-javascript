@@ -1,6 +1,11 @@
 body {
+    color: black;
     background-color: rgba(128, 128, 128, 0.801);
-    font: normal 15pt Arial;
+    font: normal 15pt;
+    font-size: large;
+    font-family: "Boldonse", system-ui;
+    font-weight: 400;
+    font-style: normal;
 }
 
 header {
@@ -22,7 +27,7 @@ div {
     padding: 8px;
 }
 footer {
-    color: white;
+    color: rgba(255, 255, 255, 0.596);
     text-align: center;
     font-style: italic;
 }
