@@ -49,11 +49,6 @@ header {
     margin: 0;
 }
 
-.estilizado {
-    -moz-appearance: textfield; /* Para Firefox */
-}
-
-
 
 .botao-bonito:active {
     background-color: rgb(44, 44, 44);
