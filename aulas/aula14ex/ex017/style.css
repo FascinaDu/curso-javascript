@@ -8,6 +8,11 @@ header {
     text-align: center;
 }
 
+.tabuada {
+    width: 150px;
+    height: 250px;
+}
+
 section {
     background-color: white;
     border-radius: 10px;
