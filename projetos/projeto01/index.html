@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo do Número Secreto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Jogo do Número Secreto</h1>
+        <p>Adivinhe o número entre 1 e 100!</p>
+        <input type="number" id="inputNumero" placeholder="Digite um número">
+        <button onclick="verificarNumero()">Tentar</button>
+        <p class="mensagem" id="mensagem"></p>
+        <button onclick="reiniciarJogo()" id="reiniciar" style="display:none;">Reiniciar Jogo</button>
+    </div>
+
+    <link rel="stylesheet" href="script.js">
+</body>
+</html>
