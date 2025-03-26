@@ -22,9 +22,9 @@ button {
     padding: 10px 15px;
     background: #007bff;
     color: white;
-    border: none;
+    border: 3px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 8px;
 }
 button:hover {
     background: #0056b3;

@@ -1,4 +1,4 @@
-let numeroSecreto = Math.floor(Math.random() * 100) + 1;
+let numeroSecreto = Math.floor(Math.random() * 100) + 1; //Para garantir que o número seja de 1 a 100
 let tentativas = 0;
 
 function verificarNumero() {
