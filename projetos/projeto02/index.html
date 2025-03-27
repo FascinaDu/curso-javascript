@@ -1,80 +1,35 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Downloader</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>TodoList com Tema Claro/Escuro</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>YouTube Downloader</h1>
-            <p>Cole o link do YouTube e baixe o vídeo ou áudio</p>
+            <h1>Minha Lista de Tarefas</h1>
+            <button id="theme-toggle" aria-label="Alternar para tema escuro">🌙</button>
         </header>
         
-        <main>
-            <div class="input-container">
-                <input type="text" id="youtube-url" placeholder="Cole o link do YouTube aqui...">
-                <button id="fetch-btn">Buscar</button>
-            </div>
-            
-            <div id="video-info" class="hidden">
-                <div class="video-preview">
-                    <img id="thumbnail" src="" alt="Thumbnail do vídeo">
-                    <div class="video-details">
-                        <h2 id="video-title"></h2>
-                        <p id="video-duration"></p>
-                        <p id="video-author"></p>
-                    </div>
-                </div>
-                
-                <div class="download-options">
-                    <h3>Opções de Download</h3>
-                    <div class="options-container">
-                        <div class="option">
-                            <button id="download-video" class="download-btn">
-                                <i class="fas fa-video"></i> Baixar Vídeo
-                            </button>
-                            <select id="video-quality">
-                                <option value="highest">Melhor Qualidade</option>
-                                <option value="720p">720p</option>
-                                <option value="480p">480p</option>
-                                <option value="360p">360p</option>
-                            </select>
-                        </div>
-                        
-                        <div class="option">
-                            <button id="download-audio" class="download-btn">
-                                <i class="fas fa-music"></i> Baixar MP3
-                            </button>
-                            <select id="audio-quality">
-                                <option value="highest">Melhor Qualidade</option>
-                                <option value="medium">Média Qualidade</option>
-                                <option value="lowest">Baixa Qualidade</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="loading" class="hidden">
-                <div class="spinner"></div>
-                <p>Processando seu pedido...</p>
-            </div>
-            
-            <div id="download-progress" class="hidden">
-                <div class="progress-bar">
-                    <div id="progress-fill"></div>
-                </div>
-                <p id="progress-text">0%</p>
-            </div>
-        </main>
+        <div class="todo-input">
+            <input type="text" id="task-input" placeholder="Adicionar nova tarefa...">
+            <button id="add-task">Adicionar</button>
+        </div>
         
-        <footer>
-            <p>Desenvolvido com ❤️ | Use com responsabilidade</p>
-        </footer>
+        <div class="filters">
+            <button class="filter active" data-filter="all">Todas</button>
+            <button class="filter" data-filter="active">Ativas</button>
+            <button class="filter" data-filter="completed">Concluídas</button>
+        </div>
+        
+        <ul id="todo-list"></ul>
+        
+        <div class="todo-stats">
+            <span id="tasks-count">0 tarefas restantes</span>
+            <button id="clear-completed">Limpar concluídas</button>
+        </div>
     </div>
     
     <script src="script.js"></script>

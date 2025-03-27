@@ -1,195 +1,180 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const youtubeUrlInput = document.getElementById('youtube-url');
-    const fetchBtn = document.getElementById('fetch-btn');
-    const videoInfoSection = document.getElementById('video-info');
-    const loadingSection = document.getElementById('loading');
-    const downloadProgressSection = document.getElementById('download-progress');
-    const progressFill = document.getElementById('progress-fill');
-    const progressText = document.getElementById('progress-text');
+// Seleção de elementos
+const themeToggle = document.getElementById('theme-toggle');
+const taskInput = document.getElementById('task-input');
+const addTaskBtn = document.getElementById('add-task');
+const todoList = document.getElementById('todo-list');
+const tasksCount = document.getElementById('tasks-count');
+const clearCompletedBtn = document.getElementById('clear-completed');
+const filterButtons = document.querySelectorAll('.filter');
+
+// Estado inicial
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+let currentFilter = 'all';
+
+// Configuração inicial do tema
+function initTheme() {
+    // Verifica o tema salvo no localStorage
+    const savedTheme = localStorage.getItem('theme');
     
-    const thumbnail = document.getElementById('thumbnail');
-    const videoTitle = document.getElementById('video-title');
-    const videoDuration = document.getElementById('video-duration');
-    const videoAuthor = document.getElementById('video-author');
-    
-    const downloadVideoBtn = document.getElementById('download-video');
-    const downloadAudioBtn = document.getElementById('download-audio');
-    const videoQualitySelect = document.getElementById('video-quality');
-    const audioQualitySelect = document.getElementById('audio-quality');
-    
-    // Sua chave de API aqui
-    const API_KEY = 'SUA_CHAVE_API_AQUI';
-    const API_ENDPOINT = 'https://api.exemplo.com/youtube-downloader';
-    
-    // Função para validar URL do YouTube
-    function isValidYoutubeUrl(url) {
-        const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
-        return youtubeRegex.test(url);
-    }
-    
-    // Função para extrair o ID do vídeo do YouTube
-    function extractVideoId(url) {
-        const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-        const match = url.match(regExp);
-        return (match && match[7].length === 11) ? match[7] : false;
-    }
-    
-    // Função para buscar informações do vídeo
-    async function fetchVideoInfo(videoId) {
-        try {
-            showLoading(true);
-            
-            // Aqui você usaria sua API para obter informações do vídeo
-            const response = await fetch(`${API_ENDPOINT}/info?videoId=${videoId}&apiKey=${API_KEY}`);
-            
-            if (!response.ok) {
-                throw new Error('Falha ao buscar informações do vídeo');
-            }
-            
-            const data = await response.json();
-            
-            // Preencher os detalhes do vídeo na interface
-            thumbnail.src = data.thumbnailUrl;
-            videoTitle.textContent = data.title;
-            videoDuration.textContent = `Duração: ${formatDuration(data.duration)}`;
-            videoAuthor.textContent = `Canal: ${data.author}`;
-            
-            showLoading(false);
-            videoInfoSection.classList.remove('hidden');
-            
-            return data;
-        } catch (error) {
-            showLoading(false);
-            alert(`Erro: ${error.message}`);
-            console.error(error);
-        }
-    }
-    
-    // Função para formatar a duração do vídeo
-    function formatDuration(seconds) {
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const secs = seconds % 60;
+    // Se existir um tema salvo, usa ele
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeToggle(savedTheme);
+    } 
+    // Se não existir, verifica as preferências do sistema
+    else {
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
         
-        if (hours > 0) {
-            return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        } else {
-            return `${minutes}:${secs.toString().padStart(2, '0')}`;
+        if (prefersDarkScheme.matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            updateThemeToggle('dark');
         }
     }
+}
+
+// Atualiza o ícone do botão de tema
+function updateThemeToggle(theme) {
+    if (theme === 'dark') {
+        themeToggle.textContent = '☀️';
+        themeToggle.setAttribute('aria-label', 'Alternar para tema claro');
+    } else {
+        themeToggle.textContent = '🌙';
+        themeToggle.setAttribute('aria-label', 'Alternar para tema escuro');
+    }
+}
+
+// Alterna o tema
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     
-    // Função para iniciar o download
-    async function startDownload(type, quality, videoId) {
-        try {
-            showLoading(true);
-            downloadProgressSection.classList.remove('hidden');
-            
-            // Configurar o endpoint de download com base no tipo (vídeo ou áudio)
-            const downloadEndpoint = `${API_ENDPOINT}/download`;
-            
-            // Parâmetros para a API
-            const params = new URLSearchParams({
-                videoId: videoId,
-                apiKey: API_KEY,
-                format: type,
-                quality: quality
-            });
-            
-            // Iniciar o download com monitoramento de progresso
-            const response = await fetch(`${downloadEndpoint}?${params}`);
-            
-            if (!response.ok) {
-                throw new Error('Falha ao iniciar o download');
-            }
-            
-            // Simular progresso (em um caso real, você receberia atualizações da API)
-            simulateProgress();
-            
-            const data = await response.json();
-            
-            // Quando o download estiver pronto, redirecionar para o link de download
-            setTimeout(() => {
-                window.location.href = data.downloadUrl;
-                resetProgress();
-                showLoading(false);
-            }, 1000);
-            
-        } catch (error) {
-            resetProgress();
-            showLoading(false);
-            alert(`Erro no download: ${error.message}`);
-            console.error(error);
-        }
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeToggle(newTheme);
+}
+
+// Renderiza as tarefas com base no filtro atual
+function renderTasks() {
+    todoList.innerHTML = '';
+    
+    let filteredTasks = tasks;
+    
+    if (currentFilter === 'active') {
+        filteredTasks = tasks.filter(task => !task.completed);
+    } else if (currentFilter === 'completed') {
+        filteredTasks = tasks.filter(task => task.completed);
     }
     
-    // Função para simular o progresso (em uma implementação real, você receberia atualizações da API)
-    function simulateProgress() {
-        let progress = 0;
-        const interval = setInterval(() => {
-            progress += 5;
-            updateProgress(progress);
-            
-            if (progress >= 100) {
-                clearInterval(interval);
-            }
-        }, 200);
-    }
-    
-    // Função para atualizar a barra de progresso
-    function updateProgress(percentage) {
-        progressFill.style.width = `${percentage}%`;
-        progressText.textContent = `${percentage}%`;
-    }
-    
-    // Função para resetar o progresso
-    function resetProgress() {
-        downloadProgressSection.classList.add('hidden');
-        updateProgress(0);
-    }
-    
-    // Função para mostrar/esconder o indicador de carregamento
-    function showLoading(show) {
-        if (show) {
-            loadingSection.classList.remove('hidden');
-        } else {
-            loadingSection.classList.add('hidden');
-        }
-    }
-    
-    // Event Listeners
-    fetchBtn.addEventListener('click', async () => {
-        const url = youtubeUrlInput.value.trim();
+    filteredTasks.forEach(task => {
+        const li = document.createElement('li');
+        li.className = `todo-item ${task.completed ? 'completed' : ''}`;
+        li.dataset.id = task.id;
         
-        if (!isValidYoutubeUrl(url)) {
-            alert('Por favor, insira um URL válido do YouTube');
-            return;
-        }
+        li.innerHTML = `
+            <input type="checkbox" class="todo-checkbox" ${task.completed ? 'checked' : ''}>
+            <span class="todo-text">${task.text}</span>
+            <div class="todo-actions">
+                <button class="edit-btn">✏️</button>
+                <button class="delete-btn">🗑️</button>
+            </div>
+        `;
         
-        const videoId = extractVideoId(url);
-        if (videoId) {
-            await fetchVideoInfo(videoId);
-        } else {
-            alert('Não foi possível extrair o ID do vídeo');
-        }
+        todoList.appendChild(li);
     });
     
-    downloadVideoBtn.addEventListener('click', () => {
-        const url = youtubeUrlInput.value.trim();
-        const videoId = extractVideoId(url);
-        const quality = videoQualitySelect.value;
-        
-        if (videoId) {
-            startDownload('video', quality, videoId);
-        }
-    });
+    updateTasksCount();
+}
+
+// Adiciona uma nova tarefa
+function addTask() {
+    const text = taskInput.value.trim();
     
-    downloadAudioBtn.addEventListener('click', () => {
-        const url = youtubeUrlInput.value.trim();
-        const videoId = extractVideoId(url);
-        const quality = audioQualitySelect.value;
+    if (text) {
+        const newTask = {
+            id: Date.now(),
+            text,
+            completed: false,
+            createdAt: new Date()
+        };
         
-        if (videoId) {
-            startDownload('audio', quality, videoId);
+        tasks.push(newTask);
+        saveTasks();
+        renderTasks();
+        taskInput.value = '';
+    }
+}
+
+// Atualiza o contador de tarefas
+function updateTasksCount() {
+    const remainingTasks = tasks.filter(task => !task.completed).length;
+    tasksCount.textContent = `${remainingTasks} tarefa${remainingTasks !== 1 ? 's' : ''} restante${remainingTasks !== 1 ? 's' : ''}`;
+}
+
+// Salva as tarefas no localStorage
+function saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+// Event Listeners
+themeToggle.addEventListener('click', toggleTheme);
+
+addTaskBtn.addEventListener('click', addTask);
+
+taskInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        addTask();
+    }
+});
+
+todoList.addEventListener('click', (e) => {
+    const target = e.target;
+    const todoItem = target.closest('.todo-item');
+    
+    if (!todoItem) return;
+    
+    const taskId = parseInt(todoItem.dataset.id);
+    const taskIndex = tasks.findIndex(task => task.id === taskId);
+    
+    if (target.classList.contains('todo-checkbox')) {
+        tasks[taskIndex].completed = target.checked;
+        todoItem.classList.toggle('completed', target.checked);
+        saveTasks();
+        updateTasksCount();
+    } 
+    else if (target.classList.contains('delete-btn')) {
+        tasks.splice(taskIndex, 1);
+        saveTasks();
+        renderTasks();
+    } 
+    else if (target.classList.contains('edit-btn')) {
+        const todoText = todoItem.querySelector('.todo-text');
+        const currentText = todoText.textContent;
+        const newText = prompt('Editar tarefa:', currentText);
+        
+        if (newText !== null && newText.trim() !== '') {
+            tasks[taskIndex].text = newText.trim();
+            todoText.textContent = newText.trim();
+            saveTasks();
         }
+    }
+});
+
+clearCompletedBtn.addEventListener('click', () => {
+    tasks = tasks.filter(task => !task.completed);
+    saveTasks();
+    renderTasks();
+});
+
+filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        currentFilter = button.dataset.filter;
+        renderTasks();
     });
 });
+
+// Inicialização
+initTheme();
+renderTasks();
