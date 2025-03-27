@@ -21,6 +21,9 @@ function verificarNumero() {
     } else {
         mensagem.textContent = "🔼 O número secreto é maior! Tente novamente.";
     }
+    input.value = ''
+    input.focus()
+    
 }
 
 function reiniciarJogo() {
@@ -29,4 +32,10 @@ function reiniciarJogo() {
     document.getElementById("mensagem").textContent = "";
     document.getElementById("inputNumero").value = "";
     document.getElementById("reiniciar").style.display = "none";
+}
+
+function handle(event){
+    if (event.keyCode == 13){
+        verificarNumero();
+    }
 }
